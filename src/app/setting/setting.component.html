@@ -1,0 +1,25 @@
+<div class="row">
+   <div class="menuButton home"><a routerLink="" >Home</a></div>
+ 
+   <form appearance="fill" (ngSubmit)="onSubmit()">
+      <label>
+         Choosing the number of opponents</label>
+      <select placeholder="Placeholder" [(ngModel)]="selectedValue"  name="select">
+         <option *ngFor="let item of players " [value]="item.value">
+           {{item.viewValue}}
+         </option>
+       </select>
+       <button>Submit</button>
+   </form>
+
+<!--
+   <form  #f="ngForm" (ngSubmit)="onSubmit(f)" >
+      <select name="select" ngModel required #select="ngModel" > 
+         <option value="2">1 anemy</option>
+         <option value="3" >2 anemy</option>
+         <option value="4" selected>3 anemy</option>
+      </select>
+      <button>Submit</button>
+
+   </form>-->
+</div>

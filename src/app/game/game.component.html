@@ -1,0 +1,57 @@
+<div class="gameTable">
+   <div class="menuButton"><a routerLink="/menu"><span></span></a></div>
+   <div class="players">
+         <div class="player" *ngFor="let player of gameService.players">
+      <div class="player" id="p{{player.id}}">
+      <div class="palette" (click)=" gameService.cardToPalette(player, gameService.stepControl)" >
+         <div class="num">player {{player.id+1}}</div>
+         <div class="paletteCard" *ngFor="let card of player.palette " [ngClass]="{
+            r: card.color === 7,
+            o: card.color === 6,
+            y: card.color === 5,
+            g: card.color === 4,
+            lb: card.color ===3 ,
+            b: card.color === 2,
+            i: card.color === 1
+          }"> {{card.value}}  </div>
+      </div>
+      <div class="hand" >
+      <div class="handCard" *ngFor="let card of player.hand " class="{{card.id}}" (click)="gameService.activCard(card,player)" [ngClass]="{
+        r: card.color === 7,
+        o: card.color === 6,
+        y: card.color === 5,
+        g: card.color === 4,
+        lb: card.color ===3 ,
+        b: card.color === 2,
+        i: card.color === 1,
+        active: card.active === true
+      }"> {{card.value}} <span> {{ gameService.ruleFromColor(card.color)}}</span></div></div>
+         </div>
+      </div>
+   </div>
+   <div class="central">
+      <div class="rules">
+         <div class="r"></div>
+         <div class="o"></div>
+         <div class="y"></div>
+         <div class="g"></div>
+         <div class="lb"></div>
+         <div class="b"></div>
+         <div class="i"></div>
+      </div>
+      <div class="stack" (click)=" gameService.cardToStack(this.gameService.players,this.gameService.stack,this.gameService.stepControl)" [ngClass]="{
+         r: this.gameService.stack[this.gameService.stack.length-1].color === 7,
+         o: this.gameService.stack[this.gameService.stack.length-1].color === 6,
+         y: this.gameService.stack[this.gameService.stack.length-1].color === 5,
+         g: this.gameService.stack[this.gameService.stack.length-1].color === 4,
+         lb:this.gameService.stack[this.gameService.stack.length-1].color ===3 ,
+         b: this.gameService.stack[this.gameService.stack.length-1].color === 2,
+         i: this.gameService.stack[this.gameService.stack.length-1].color === 1
+         }">
+         {{this.gameService.stack[this.gameService.stack.length-1].value }}<span> {{ gameService.ruleFromColor(this.gameService.stack[this.gameService.stack.length-1].color)}}</span>
+      </div>
+      <button id="endStep" (click)=" this.stepEnd()">end step</button>
+      <div class="currentPlayer"> <span> player walks</span>{{gameService.stepControl.player.id+1}} </div>
+      <button id="gameOver" (click)=" this.gameOver()">game over</button>
+   </div>
+</div>

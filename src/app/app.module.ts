@@ -10,6 +10,7 @@ import {SettingComponent} from "./setting/setting.component"
 import { HomeComponent } from './home/home.component';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RulesComponent } from './rules/rules.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     GameComponent,
     MenuComponent,
     SettingComponent,
-    HomeComponent
+    HomeComponent,
+    RulesComponent
   ],
   imports: [
     BrowserModule,
