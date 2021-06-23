@@ -21,7 +21,8 @@
 }
 
 .gameTable{
-      width: 100%;
+   //min-width: 320px;
+   width: 100%;
    height: 100%;
    display: flex;
    flex-direction: column-reverse;
@@ -38,6 +39,7 @@
 }
 .hand{
    display: flex;
+   justify-content: center;
    width: 100%;
    height: 55%;
    background: #555;
@@ -49,11 +51,11 @@
    flex-direction: column;
    align-items: center;
    justify-content: center;
-   width: 16%;
+   width: 12.0%;
    height: 100%;
    text-align: center;
    font-size: 25px;
-   margin: 0 5px;
+   margin: 0 1%;
    span{
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif ;
       font-size: 15px;
@@ -63,6 +65,7 @@
 .palette{
    position: relative;
    display: flex;
+   align-items: center;
    width: 100%;
    height: 45%;
    background: #222;
@@ -73,11 +76,22 @@
    display: flex;
    align-items: center;
    justify-content: center;
-   width: 12%;
+   width: 10%;
    height: 100%;
    text-align: center;
    font-size: 25px;
-   margin: 0 5px;
+   margin: 0 1%;
+   overflow: hidden;
+}
+.enemyCard{
+   b{transform: rotate(90deg);}
+   color: #b44436;
+   background: red; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(300deg,#E80505,#ff25a5,#FDD819,#E80505,#F0FF90,#f8CF0B,#50ff2d,#007c15,#33f1ff,#01a1b3,#6B73FF,#000DFF,#BC78EC,#3B2667); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(30deg,#E80505,#ff25a5,#FDD819,#E80505,#F0FF90,#f8CF0B,#50ff2d,#007c15,#33f1ff,#01a1b3,#6B73FF,#000DFF,#BC78EC,#3B2667); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(30deg,#E80505,#ff25a5,#FDD819,#E80505,#F0FF90,#f8CF0B,#50ff2d,#007c15,#33f1ff,#01a1b3,#6B73FF,#000DFF,#BC78EC,#3B2667); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(155deg,#E80505,#ff25a5,#FDD819,#E80505,#F0FF90,#f8CF0B,#50ff2d,#007c15,#33f1ff,#01a1b3,#6B73FF,#000DFF,#BC78EC,#3B2667); /* Standard syntax (must be last) */
+
 }
 .num{
    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;

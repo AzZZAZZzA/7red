@@ -36,7 +36,7 @@ export interface StepControl{
 @Injectable({ providedIn: 'root' })
 export class GameService {
    
-   constructor(public chackStep:CheckStep,public checkGameOver:CheckGameOver){}
+   constructor(public checkStep:CheckStep,public checkGameOver:CheckGameOver){}
    public game = false
    public playerSum: PlayerSum = 4
    public players: Player[]
@@ -97,21 +97,21 @@ export class GameService {
       }
       let idOfCurrentPlayer:number
       if(this.playerSum ===2){
-         if (this.chackStep.comparisonCard(this.players[0].palette[0],this.players[1].palette[0])){
+         if (this.checkStep.comparisonCard(this.players[0].palette[0],this.players[1].palette[0])){
             idOfCurrentPlayer= 0
          }else{
          idOfCurrentPlayer= 1}
       }
       if(this.playerSum===3){
          
-         if (this.chackStep.comparisonCard(this.players[0].palette[0],this.players[1].palette[0])){
-            if (this.chackStep.comparisonCard(this.players[0].palette[0],this.players[2].palette[0])) {
+         if (this.checkStep.comparisonCard(this.players[0].palette[0],this.players[1].palette[0])){
+            if (this.checkStep.comparisonCard(this.players[0].palette[0],this.players[2].palette[0])) {
                idOfCurrentPlayer=0
             }else{
                idOfCurrentPlayer= 2
             }
          }else{
-            if (this.chackStep.comparisonCard(this.players[1].palette[0],this.players[2].palette[0])) {
+            if (this.checkStep.comparisonCard(this.players[1].palette[0],this.players[2].palette[0])) {
             idOfCurrentPlayer=1
             }else{
                idOfCurrentPlayer=2
@@ -121,16 +121,16 @@ export class GameService {
 
       }
       if(this.playerSum===4){
-         if (this.chackStep.comparisonCard(this.players[0].palette[0],this.players[1].palette[0])){
-            if (this.chackStep.comparisonCard(this.players[0].palette[0],this.players[2].palette[0])) {
-               if (this.chackStep.comparisonCard(this.players[0].palette[0],this.players[3].palette[0]) ){
+         if (this.checkStep.comparisonCard(this.players[0].palette[0],this.players[1].palette[0])){
+            if (this.checkStep.comparisonCard(this.players[0].palette[0],this.players[2].palette[0])) {
+               if (this.checkStep.comparisonCard(this.players[0].palette[0],this.players[3].palette[0]) ){
                   idOfCurrentPlayer= 0
                }else{
                   idOfCurrentPlayer= 3
                }
             }else{
-               if (this.chackStep.comparisonCard(this.players[2].palette[0],this.players[3].palette[0]) ){
-                  if (this.chackStep.comparisonCard(this.players[2].palette[0],this.players[3].palette[0]) ){
+               if (this.checkStep.comparisonCard(this.players[2].palette[0],this.players[3].palette[0]) ){
+                  if (this.checkStep.comparisonCard(this.players[2].palette[0],this.players[3].palette[0]) ){
                      idOfCurrentPlayer= 2
                   }else{
                      idOfCurrentPlayer= 3
@@ -140,14 +140,14 @@ export class GameService {
                }
             }
          }else{
-            if (this.chackStep.comparisonCard(this.players[1].palette[0],this.players[2].palette[0])) {
-               if (this.chackStep.comparisonCard(this.players[1].palette[0],this.players[3].palette[0]) ){
+            if (this.checkStep.comparisonCard(this.players[1].palette[0],this.players[2].palette[0])) {
+               if (this.checkStep.comparisonCard(this.players[1].palette[0],this.players[3].palette[0]) ){
                   idOfCurrentPlayer= 1
                }else{
                   idOfCurrentPlayer= 3
                }
             }else{
-                           if (this.chackStep.comparisonCard(this.players[2].palette[0],this.players[3].palette[0]) ){
+                           if (this.checkStep.comparisonCard(this.players[2].palette[0],this.players[3].palette[0]) ){
                idOfCurrentPlayer= 2
             }else{
                idOfCurrentPlayer= 3
@@ -157,10 +157,14 @@ export class GameService {
 
          }
       }
-      console.log(idOfCurrentPlayer);
+      //console.log(idOfCurrentPlayer);
       
       this.stepControl.player= this.players[this.nextPlayer(this.players[idOfCurrentPlayer],this.playerSum)]
-
+      if (this.stepControl.player.id===0) {
+         this.checkStep.stackLock= false
+      }else{
+         this.checkStep.stackLock=true
+      }
    
    }
 
@@ -176,7 +180,7 @@ export class GameService {
            card.active= true}
        } 
       //}else{
-      //   console.log('its any card');
+      //console.log('its any card');
       //}
    }
 
@@ -232,6 +236,11 @@ removePaletteCard(player,stepControl){
       }else{alert("В палитру карта уже выложена или использованы чужие карты")}
    }
    cardToStack(players,stack,stepControl){
+      if (this.checkStep.stackLock=== true) {
+         //console.error('to stack true');
+         
+         return
+      }
       let player= players[stepControl.player.id]
       if(player.id=== stepControl.player.id){
          if (stepControl.cardToStack===false) {
@@ -271,7 +280,7 @@ removePaletteCard(player,stepControl){
    //   }
    //   if(this.stepControl.cardToStack===true){
    //      
-   //      console.log(`Card to stack ${this.stepControl.cardToStack}`);
+   //console.log(`Card to stack ${this.stepControl.cardToStack}`);
    //   }
    //}
 
@@ -297,6 +306,18 @@ removePaletteCard(player,stepControl){
          }
       }
       this.stepControl={player:this.players[nextId], cardToPalette:false, cardToStack:false}
+      //console.log(this.players[nextId].id);
+      
+      if (this.players[nextId].id===0) {
+         this.checkStep.stackLock= false
+         //console.log('edit false');
+         
+      }else{
+         this.checkStep.stackLock=true
+         //console.log('edit true');
+         
+      }
+
    }
 
 }

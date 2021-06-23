@@ -2,32 +2,58 @@
    <div class="menuButton"><a routerLink="/menu"><span></span></a></div>
    <div class="players">
          <div class="player" *ngFor="let player of gameService.players">
-      <div class="player" id="p{{player.id}}">
-      <div class="palette" (click)=" gameService.cardToPalette(player, gameService.stepControl)" >
-         <div class="num">player {{player.id+1}}</div>
-         <div class="paletteCard" *ngFor="let card of player.palette " [ngClass]="{
-            r: card.color === 7,
-            o: card.color === 6,
-            y: card.color === 5,
-            g: card.color === 4,
-            lb: card.color ===3 ,
-            b: card.color === 2,
-            i: card.color === 1
-          }"> {{card.value}}  </div>
-      </div>
-      <div class="hand" >
-      <div class="handCard" *ngFor="let card of player.hand " class="{{card.id}}" (click)="gameService.activCard(card,player)" [ngClass]="{
-        r: card.color === 7,
-        o: card.color === 6,
-        y: card.color === 5,
-        g: card.color === 4,
-        lb: card.color ===3 ,
-        b: card.color === 2,
-        i: card.color === 1,
-        active: card.active === true
-      }"> {{card.value}} <span> {{ gameService.ruleFromColor(card.color)}}</span></div></div>
+            <div *ngIf="player.id===0; else bot">
+               <div class="player" id="p{{player.id}}">
+                  <div class="palette" (click)=" gameService.cardToPalette(player, gameService.stepControl)" >
+                     <div class="num">player {{player.id+1}}</div>
+                     <div class="paletteCard" *ngFor="let card of player.palette " [ngClass]="{
+                        r: card.color === 7,
+                        o: card.color === 6,
+                        y: card.color === 5,
+                        g: card.color === 4,
+                        lb: card.color ===3 ,
+                        b: card.color === 2,
+                        i: card.color === 1
+                        }"> {{card.value}}  
+                     </div>
+                  </div>
+                  <div class="hand" >
+                     <div class="handCard" *ngFor="let card of player.hand " class="{{card.id}}" (click)="gameService.activCard(card,player)" [ngClass]="{
+                        r: card.color === 7,
+                        o: card.color === 6,
+                        y: card.color === 5,
+                        g: card.color === 4,
+                        lb: card.color ===3 ,
+                        b: card.color === 2,
+                        i: card.color === 1,
+                        active: card.active === true
+                        }"> {{card.value}} <span> {{ gameService.ruleFromColor(card.color)}}</span>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <ng-template #bot>
+               <div class="player" id="p{{player.id}}">
+                  <div class="palette" >
+                     <div class="num">player {{player.id+1}}</div>
+                     <div class="paletteCard" *ngFor="let card of player.palette " [ngClass]="{
+                        r: card.color === 7,
+                        o: card.color === 6,
+                        y: card.color === 5,
+                        g: card.color === 4,
+                        lb: card.color ===3 ,
+                        b: card.color === 2,
+                        i: card.color === 1
+                        }"> {{card.value}}  
+                     </div>
+                  </div>
+                  <div class="hand" >
+                     <div class="handCard" *ngFor="let card of player.hand " class="enemyCard handCard" > <b>red7</b> 
+                     </div>
+                  </div>
+               </div>
+            </ng-template>
          </div>
-      </div>
    </div>
    <div class="central">
       <div class="rules">

@@ -18,7 +18,7 @@ export class CheckStep{
    
 
    constructor(checkGameOver:CheckGameOver){}
-   
+   public stackLock:boolean= false
    
    check(stack:Card[], players:Player[], stepControl:StepControl,playerSum:PlayerSum,nextPlayer){
       //console.log(players);
@@ -354,6 +354,9 @@ export class CheckStep{
    let topOneColorCardSum={color:1,count:0,card:[]}
    for (let i = 0; i < storage.length; i++) {
       if ( topOneColorCardSum.count< storage[i].count ) {
+         topOneColorCardSum= storage[i]
+      }else if( topOneColorCardSum.count=== storage[i].count ){
+         if(this.comparisonCard(this.searchTopCard(storage[i].card),this.searchTopCard(topOneColorCardSum.card)))
          topOneColorCardSum= storage[i]
       }
 

@@ -104,6 +104,7 @@ export class BotService {
          }, 5000);
          
          setTimeout(() => {
+            this.chackStep.stackLock=false
             document.getElementById('endStep').click()
          }, 10000);
          return
@@ -122,8 +123,10 @@ export class BotService {
             testedPlayers[currentPlayer.id].hand[0].active=true
             //console.log("Start testing card to stack");
             //console.log(testedPlayers[currentPlayer.id].hand[0]);
-            
+            this.chackStep.stackLock= false
             this.gameService.cardToStack(testedPlayers,testStack,testStepControl)
+            this.chackStep.stackLock=true
+            //console.log('edit true');
             let luckyPaletteResult= this.firstBotAnalyst()
 
             this.gameService.removeStackCard(testedPlayers[currentPlayer.id],testStack,testStepControl,)
@@ -158,10 +161,15 @@ export class BotService {
                
                testPlayers[currentPlayer.id].hand[handToStackId].active=true
                setTimeout(() => {
+                  this.chackStep.stackLock= false
                   this.gameService.cardToStack(this.gameService.players,this.gameService.stack,this.gameService.stepControl)
+                  this.chackStep.stackLock=true
+                  //console.log('edit true');
                }, 5000);
                setTimeout(() => {
+                  this.chackStep.stackLock=false
                   document.getElementById('endStep').click()
+                  
                }, 10000);
                return
             }else if (arrayOfStackResults[resultStack].result!==false) {
@@ -179,9 +187,10 @@ export class BotService {
                
                
                testPlayers[currentPlayer.id].hand[handToStackId].active=true
-
+               this.chackStep.stackLock=false
                this.gameService.cardToStack(this.gameService.players,this.gameService.stack,this.gameService.stepControl)
-
+               this.chackStep.stackLock=true
+               //console.log('edit true');
                //console.log("Card topalette active");
 
 
@@ -200,7 +209,9 @@ export class BotService {
                }, 5000);
                
                setTimeout(() => {
+                  this.chackStep.stackLock=false
                   document.getElementById('endStep').click()
+                  
                }, 10000);
                return
             }
@@ -208,7 +219,9 @@ export class BotService {
 
                   alert(`Bot ${this.gameService.stepControl.player.id+1} end game`)
                   setTimeout(() => {
+                     this.chackStep.stackLock=false
                      document.getElementById('gameOver').click()
+                     
                   }, 5000);
 
       }

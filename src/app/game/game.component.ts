@@ -14,8 +14,10 @@ export class GameComponent implements OnInit {
   constructor(public gameService: GameService, public checkStep:CheckStep,public botWorker: BotWorker) { }
 
   stepEnd(){
-      
-    if(this.gameService.chackStep.check( this.gameService.stack, this.gameService.players, this.gameService.stepControl, this.gameService.playerSum, this.gameService.nextPlayer)){
+    if (this.checkStep.stackLock=== true) {
+      return
+    }
+    if(this.gameService.checkStep.check( this.gameService.stack, this.gameService.players, this.gameService.stepControl, this.gameService.playerSum, this.gameService.nextPlayer)){
        
        //let nextPlayerId= this.nextPlayer(this.stepControl.player,this.playerSum)
        this.gameService.nextStapPlayer()
@@ -29,25 +31,28 @@ export class GameComponent implements OnInit {
  }
 
  gameOver(){
-  if(this.gameService.stepControl.cardToPalette=== true){
+  if (this.checkStep.stackLock=== true) {
+    return
+  }
+    if(this.gameService.stepControl.cardToPalette=== true){
      this.gameService.removePaletteCard(this.gameService.players[this.gameService.stepControl.player.id],this.gameService.stepControl)
-  }
-  if (this.gameService.stepControl.cardToStack===true) {
+    }
+    if (this.gameService.stepControl.cardToStack===true) {
      this.gameService.removeStackCard(this.gameService.players[this.gameService.stepControl.player.id],this.gameService.stack,this.gameService.stepControl)
-  }
-  this.gameService.players[this.gameService.stepControl.player.id].gameOver=true
-  this.gameService.players[this.gameService.stepControl.player.id].palette= []
-  this.gameService.checkGameOver.checkGameOver.count+=1 ;
-  for (let x = 0; x < this.gameService.players.length; x++) {
+    }
+    this.gameService.players[this.gameService.stepControl.player.id].gameOver=true
+    this.gameService.players[this.gameService.stepControl.player.id].palette= []
+    this.gameService.checkGameOver.checkGameOver.count+=1 ;
+    for (let x = 0; x < this.gameService.players.length; x++) {
      if(this.gameService.players[x].gameOver){
         this.gameService.checkGameOver.checkGameOver.playersId[x]=0
      } else{
         this.gameService.checkGameOver.checkGameOver.playersId[x]=1
      }
      
-  }
+    }
 
-  if ( this.gameService.checkGameOver.checkGameOver.count > this.gameService.playerSum-2) {
+    if ( this.gameService.checkGameOver.checkGameOver.count > this.gameService.playerSum-2) {
      let winnerId
      for (let i = 0; i < this.gameService.checkGameOver.checkGameOver.playersId.length; i++) {
         if(this.gameService.checkGameOver.checkGameOver.playersId[i]===1){
@@ -56,11 +61,11 @@ export class GameComponent implements OnInit {
      }
      alert(`Game over. Winner ${winnerId+1}`)
      location.reload()
-  }
-  this.gameService.nextStapPlayer()
-  if (this.gameService.stepControl.player.id!==0) {
+    }
+    this.gameService.nextStapPlayer()
+    if (this.gameService.stepControl.player.id!==0) {
     this.botWorker.botStep()
-  }
+    }
 }
 
 
@@ -126,6 +131,7 @@ export class GameComponent implements OnInit {
       {id:48, value:2,color:1},
       {id:49, value:1,color:1}
    ]
+   this.gameService.checkGameOver.checkGameOver={count:0,playersId:[0,0,0,0]}
     this.gameService.cards.sort(()=>Math.random()-0.5);
     for (let idPlayer = 0; idPlayer < this.gameService.playerSum; idPlayer++) {
       this.gameService.players.push({id:idPlayer,hand:[],palette:[]})
