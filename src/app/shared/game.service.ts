@@ -303,6 +303,10 @@ removePaletteCard(player,stepControl){
       if (this.checkGameOver.checkGameOver.count>0) {
          if (this.checkGameOver.checkGameOver.playersId[nextId]===0) {
                nextId=this.nextPlayer({id:nextId,hand:[],palette:[]},this.playerSum)
+               if (this.checkGameOver.checkGameOver.playersId[nextId]===0) {
+                  nextId=this.nextPlayer({id:nextId,hand:[],palette:[]},this.playerSum)
+               }
+
          }
       }
       this.stepControl={player:this.players[nextId], cardToPalette:false, cardToStack:false}

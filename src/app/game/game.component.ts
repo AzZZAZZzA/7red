@@ -51,7 +51,7 @@ export class GameComponent implements OnInit {
      }
      
     }
-
+    
     if ( this.gameService.checkGameOver.checkGameOver.count > this.gameService.playerSum-2) {
      let winnerId
      for (let i = 0; i < this.gameService.checkGameOver.checkGameOver.playersId.length; i++) {
@@ -61,8 +61,10 @@ export class GameComponent implements OnInit {
      }
      alert(`Game over. Winner ${winnerId+1}`)
      location.reload()
+     return
     }
     this.gameService.nextStapPlayer()
+    alert(this.gameService.checkGameOver.checkGameOver.playersId)
     if (this.gameService.stepControl.player.id!==0) {
     this.botWorker.botStep()
     }
