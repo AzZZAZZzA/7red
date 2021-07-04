@@ -13,6 +13,16 @@ export class GameComponent implements OnInit {
 
   constructor(public gameService: GameService, public checkStep:CheckStep,public botWorker: BotWorker) { }
 
+  public menuActive:boolean=false
+
+  menuActivation(){
+    document.getElementById('menuButton').classList.toggle('active')
+    if (this.menuActive) {
+      return this.menuActive= false
+    }
+    this.menuActive= true
+  }
+
   stepEnd(){
     if (this.checkStep.stackLock=== true) {
       return

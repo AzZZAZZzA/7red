@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'setting', component: SettingComponent },
   { path: 'rules', component: RulesComponent },
   { path: 'game', component: GameComponent },
-  { path: 'menu', component: MenuComponent }
+  { path: 'assets/Red7.pdf', redirectTo: '../assets/Red7.pdf'}
 ];
 
 @NgModule({

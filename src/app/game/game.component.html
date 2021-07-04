@@ -1,5 +1,5 @@
 <div class="gameTable">
-   <div class="menuButton"><a routerLink="/menu"><span></span></a></div>
+   <div class="menuButton" id="menuButton" (click)="menuActivation()"><a><span></span></a></div>
    <div class="players">
          <div class="player" *ngFor="let player of gameService.players">
             <div *ngIf="player.id===0; else bot">
@@ -81,3 +81,6 @@
       <button id="gameOver" (click)=" this.gameOver()">game over</button>
    </div>
 </div>
+<div *ngIf="menuActive">
+
+<app-menu></app-menu></div>
